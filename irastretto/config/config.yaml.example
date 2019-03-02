@@ -1,0 +1,10 @@
+debug: true
+testing: true
+database:
+  rdbms:
+    username: ""
+    password: ""
+    hostname: ""
+    database: ""
+  redis:
+    hostname: ""
