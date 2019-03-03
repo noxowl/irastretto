@@ -14,6 +14,7 @@ from . import Extractor, ExtractorReceipt, ExtractData
 class Twitter(Extractor):
     _identity = "(https?:\/\/(.+?\.)?{0}(\/[A-Za-z0-9\-\._~:\/\?#\[\]@!$&'\(\)\*\+,;\=]*)?)" \
                 .format('twitter.com')
+    _platform = 'twitter'
 
     def __init__(self):
         print('init twitter module')
@@ -98,6 +99,7 @@ class Twitter(Extractor):
                 ext.add('data_id', self.__get_data_id(root[0][1][0]))
                 ext.add('alt', self.__get_alt(root[0][1][0]))
                 ext.add('content_path', self.__get_media_path(root[0][1][0]))
+                ext.add('source_url', self.receipt.target_url)
             except Exception as e:
                 print(e)
         return ext

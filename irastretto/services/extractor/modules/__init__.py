@@ -3,6 +3,7 @@
 """
 import re
 import requests
+from quart import g
 
 
 def __load_submodules():
@@ -24,6 +25,7 @@ class ExtractData(object):
         self.content_path = []
         self.alt = None
         self.data_id = None
+        self.source_url = None
 
     def add(self, key: str, value):
         if key == 'content':
@@ -42,6 +44,7 @@ class ExtractData(object):
 class Extractor:
     plugins = []
     _identity = ''
+    _platform = ''
 
     def __init_subclass__(cls, **kwargs):
         super().__init_subclass__(**kwargs)
@@ -80,7 +83,7 @@ class Extractor:
         :param data_id:
         :return: It duplicated or not
         """
-        return False
+        return g.session.is_exist(data_id)
 
     @staticmethod
     def protocol_cutoff(source_url: str) -> str:
