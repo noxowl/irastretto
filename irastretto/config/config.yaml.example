@@ -1,5 +1,6 @@
 debug: true
 testing: true
+database_uri: "sqlite:///"
 database:
   rdbms:
     username: ""
@@ -8,3 +9,5 @@ database:
     database: ""
   redis:
     hostname: ""
+storage:
+  endpoint: "file:///"
