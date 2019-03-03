@@ -21,7 +21,7 @@ class Loader(BaseLoader):
 def get_database_engine() -> Engine:
     config = current_app.conf
     if 'DATABASE_ENGINE' not in config:
-        db_url = config['DATABASE_URL']
+        db_url = config['DATABASE_URI']
         config['DATABASE_ENGINE'] = create_engine(db_url)
         if 'CELERY_RESULT_BACKEND' not in config:
             pass
