@@ -72,11 +72,13 @@ class Twitter(Extractor):
                                     )
         ext = self._parser(_raw)
         print(ext.__dict__)
-        ext.add('content',
-                self.__get_twitter_original_image(ext.get('content_path')))
+        for path in ext.get('content_path'):
+            ext.add('content',
+                    self.__get_twitter_original_image(path))
 
     def _parser(self, raw_tweet) -> ExtractData:
         """Parse legacy twitter mobile web(NoJS).
+        It extract only 1 image per parse.
 
         :param raw_tweet: a raw tweet page.
         :return:

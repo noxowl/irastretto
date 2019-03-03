@@ -20,13 +20,18 @@ class ExtractorReceipt(object):
 class ExtractData(object):
     def __init__(self):
         self.username = None
-        self.content = None
-        self.content_path = None
+        self.content = []
+        self.content_path = []
         self.alt = None
         self.data_id = None
 
     def add(self, key: str, value):
-        setattr(self, key, value)
+        if key == 'content':
+            self.content.append(value)
+        elif key == 'content_path':
+            self.content_path.append(value)
+        else:
+            setattr(self, key, value)
 
     def get(self, key):
         if hasattr(self, key):
