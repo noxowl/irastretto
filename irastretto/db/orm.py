@@ -2,6 +2,7 @@
 
 """
 from quart import g
+from celery import current_task
 from sqlalchemy import literal
 from sqlalchemy.orm import sessionmaker, session as sqlalchemy_session
 from flask_sqlalchemy import declarative_base

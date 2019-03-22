@@ -3,7 +3,8 @@
 """
 import re
 import requests
-from quart import g
+import irastretto
+from quart import g, current_app
 
 
 def __load_submodules():
@@ -122,5 +123,16 @@ class Extractor:
         except requests.exceptions.BaseHTTPError:
             pass
 
+    def __get_session(self) -> irastretto.db.orm.IrastrettoSession:
+        from quart import g
+        try:
+            sess = g.session
+        except Exception as e:
+            print(e)
+            from irastretto.celery import get_session
+            sess = get_session()
+        return sess
+
 
 __load_submodules()
+

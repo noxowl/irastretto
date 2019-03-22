@@ -20,6 +20,7 @@ class Twitter(Extractor):
         print('init twitter module')
         self.source = {}
         self.receipt = None
+        self.session = None
 
     def init(self, source):
         self.source = source
@@ -28,6 +29,7 @@ class Twitter(Extractor):
         self.prepare(self.source['source'])
 
     def start(self):
+        self.session = self.__get_celery_session()
         if self.receipt:
             self.extract()
 
@@ -76,6 +78,10 @@ class Twitter(Extractor):
         for path in ext.get('content_path'):
             ext.add('content',
                     self.__get_twitter_original_image(path))
+        self._write(ext)
+
+    def _write(self, ext):
+        self.session.store_metadata(ext)
 
     def _parser(self, raw_tweet) -> ExtractData:
         """Parse legacy twitter mobile web(NoJS).
